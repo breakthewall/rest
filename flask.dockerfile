@@ -15,4 +15,4 @@ RUN pip install --upgrade pip \
 # # copy project
 # COPY . /usr/src/app
 
-EXPOSE 8000
+EXPOSE 8888
