@@ -2,48 +2,33 @@ version: '3.7'
 
 services:
 
-  rq:
+  worker:
     build:
-      context: .
-      dockerfile: rq.dockerfile
+      context: rq
+      dockerfile: Dockerfile
       args:
-        TOOL_NAME: ${TOOL}
+        IMAGE: ${IMAGE}
     image: ${TOOL}-worker
-    container_name: ${TOOL}-worker
+#    container_name: ${TOOL}-worker
     volumes:
-      - ./app:/usr/src/app:ro
+      - ./app/${TOOL}:/usr/src/app/${TOOL}:ro
+      - ./app/${TOOL}.py:/usr/src/app/${TOOL}.py:ro
 #      - ./src/app.py:/usr/src/app/app.py:ro
     networks:
       - worker
       - redis
     command: rq worker ${TOOL} --url redis://redis:6379
 
-  celery:
-    build:
-      context: .
-      dockerfile: celery.dockerfile
-      args:
-        TOOL_NAME: ${TOOL}
-    image: ${TOOL}-worker
-    container_name: ${TOOL}-worker
-    volumes:
-      - ./app:/usr/src/app:ro
-#      - ./src/app.py:/usr/src/app/app.py:ro
-    networks:
-      - worker
-      - redis
-    command: celery -A ${TOOL} worker --loglevel=info
-
   flask:
     build:
-      context: .
-      dockerfile: flask.dockerfile
+      context: flask
+      dockerfile: Dockerfile
     environment:
       - FLASK_DEBUG=1
       - FLASK_RUN_PORT=8000
       - FLASK_APP=main.py
     image: flask
-    container_name: ${TOOL}-flask
+    container_name: flask
     volumes:
       - ./app:/usr/src/app:ro
       # - ./src/app.py:/usr/src/app/app.py:ro
@@ -55,9 +40,9 @@ services:
 
 networks:
   worker:
-    name: ${TOOL}-worker
+    name: worker
   flask:
-    name: ${TOOL}-flask
+    name: flask
   redis:
     external:
       name: redis

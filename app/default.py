@@ -6,4 +6,4 @@ def read_args_from_request(request):
 def run(args):
     url = args
     resp = requests.get(url)
-    return len(resp.text.split())
+    return str(len(resp.text.split()))

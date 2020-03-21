@@ -14,11 +14,10 @@ def main(tool):
 
     if request.method == "POST":
 
-        # file,data = tool_module.read_args_from_request(request)
+        args = tool_module.read_args_from_request(request)
 
         q = Queue(tool, connection=Redis(host='redis', port=6379))
-#        async_results = q.enqueue(tool_module.run, request.files['rp2_pathways'], request.files['data'])
-        async_results = q.enqueue(tool_module.run, "rp2_pathways", "data")
+        async_results = q.enqueue(tool_module.run, args)
         result = None
         while result is None:
             result = async_results.return_value
