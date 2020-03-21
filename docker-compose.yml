@@ -1,0 +1,63 @@
+version: '3.7'
+
+services:
+
+  rq:
+    build:
+      context: .
+      dockerfile: rq.dockerfile
+      args:
+        TOOL_NAME: ${TOOL}
+    image: ${TOOL}-worker
+    container_name: ${TOOL}-worker
+    volumes:
+      - ./app:/usr/src/app:ro
+#      - ./src/app.py:/usr/src/app/app.py:ro
+    networks:
+      - worker
+      - redis
+    command: rq worker ${TOOL} --url redis://redis:6379
+
+  celery:
+    build:
+      context: .
+      dockerfile: celery.dockerfile
+      args:
+        TOOL_NAME: ${TOOL}
+    image: ${TOOL}-worker
+    container_name: ${TOOL}-worker
+    volumes:
+      - ./app:/usr/src/app:ro
+#      - ./src/app.py:/usr/src/app/app.py:ro
+    networks:
+      - worker
+      - redis
+    command: celery -A ${TOOL} worker --loglevel=info
+
+  flask:
+    build:
+      context: .
+      dockerfile: flask.dockerfile
+    environment:
+      - FLASK_DEBUG=1
+      - FLASK_RUN_PORT=8000
+      - FLASK_APP=main.py
+    image: flask
+    container_name: ${TOOL}-flask
+    volumes:
+      - ./app:/usr/src/app:ro
+      # - ./src/app.py:/usr/src/app/app.py:ro
+      # - ./src/main.py:/usr/src/app/main.py:ro
+    networks:
+      - flask
+      - redis
+    command: gunicorn -w 4 -b 0.0.0.0:8000 main:app
+
+networks:
+  worker:
+    name: ${TOOL}-worker
+  flask:
+    name: ${TOOL}-flask
+  redis:
+    external:
+      name: redis
