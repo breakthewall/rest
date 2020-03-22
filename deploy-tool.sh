@@ -9,12 +9,18 @@ cd ./app
 git clone -b dev $tool_url
 cd -
 
+echo "
+#!/bin/bash
 docker network connect ${tool_name} flask
+COMPOSE_PROJECT_NAME=${tool_name} docker-compose up -d worker
+" > start-${tool_name}.sh
 
-echo "#!/bin/bash" > start-${tool_name}.sh
-echo "COMPOSE_PROJECT_NAME=${tool_name} docker-compose up -d worker" >> start-${tool_name}.sh
-echo "#!/bin/bash" > stop-${tool_name}.sh
-echo "COMPOSE_PROJECT_NAME=${tool_name} docker-compose stop worker" >> stop-${tool_name}.sh
+echo "
+#!/bin/bash
+docker network disconnect ${tool_name} flask
+COMPOSE_PROJECT_NAME=${tool_name} docker-compose stop worker
+" > stop-${tool_name}.sh
+
 chmod u+x start-${tool_name}.sh stop-${tool_name}.sh
 
 echo
