@@ -1,2 +1,2 @@
 #!/bin/bash
-COMPOSE_PROJECT_NAME=default docker-compose stop worker
+COMPOSE_PROJECT_NAME=default-app docker-compose stop worker
