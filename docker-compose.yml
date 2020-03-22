@@ -7,17 +7,15 @@ services:
       context: rq
       dockerfile: Dockerfile
       args:
-        IMAGE: ${IMAGE}
-    image: ${TOOL}-worker
-#    container_name: ${TOOL}-worker
+        IMAGE: ${COMPOSE_PROJECT_NAME}
+        TOOL_NAME: ${COMPOSE_PROJECT_NAME}
+    image: ${COMPOSE_PROJECT_NAME}-worker
     volumes:
-      - ./app/${TOOL}:/usr/src/app/${TOOL}:ro
-      - ./app/${TOOL}.py:/usr/src/app/${TOOL}.py:ro
-#      - ./src/app.py:/usr/src/app/app.py:ro
+      - ./app/${COMPOSE_PROJECT_NAME}:/usr/src/app/${COMPOSE_PROJECT_NAME}:ro
     networks:
       - worker
       - redis
-    command: rq worker ${TOOL} --url redis://redis:6379
+    command: rq worker ${COMPOSE_PROJECT_NAME} --url redis://redis:6379
 
   flask:
     build:
@@ -31,8 +29,6 @@ services:
     container_name: flask
     volumes:
       - ./app:/usr/src/app:ro
-      # - ./src/app.py:/usr/src/app/app.py:ro
-      # - ./src/main.py:/usr/src/app/main.py:ro
     networks:
       - flask
       - redis
