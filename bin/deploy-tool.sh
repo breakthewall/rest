@@ -16,14 +16,18 @@ if [[ "$branch" == "" ]]; then
   branch="master"
 fi
 
-tool_name=`echo "${tool_url##*/}"`
-length=${#tool_name}
-tool_name=${tool_name:0: length - 4}
+tool_name=$3
+if [[ "$tool_name" == "" ]]; then
+  tool_name=`echo "${tool_url##*/}"`
+  length=${#tool_name}
+  tool_name=${tool_name:0: length - 4}
+fi
+tool_name=${tool_name}_${branch}
 
 # Create data volume
 # cmd="\
 cd tools
-git clone -b $branch --single-branch $tool_url
+git clone -b $branch --single-branch $tool_url ${tool_name}
 cd $tool_name
 ln -sf . $tool_name
 #"
