@@ -7,9 +7,9 @@ services:
       context: rq
       dockerfile: Dockerfile
       args:
-        IMAGE: ${COMPOSE_PROJECT_NAME}
+        IMAGE_NAME: ${IMAGE}
         TOOL_NAME: ${COMPOSE_PROJECT_NAME}
-    image: ${COMPOSE_PROJECT_NAME}-worker
+    image: rq/${COMPOSE_PROJECT_NAME}
     volumes:
       - ./app/${COMPOSE_PROJECT_NAME}:/usr/src/app/${COMPOSE_PROJECT_NAME}:ro
     networks:
