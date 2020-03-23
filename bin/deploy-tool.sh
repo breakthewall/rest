@@ -20,11 +20,9 @@ tool_name=`echo "${tool_url##*/}"`
 length=${#tool_name}
 tool_name=${tool_name:0: length - 4}
 
-cd ./app
-git clone -b $branch --single-branch $tool_url
-# cd $tool_name
-# ln -sf . $tool_name
-cd -
+cd app && git clone -b $branch --single-branch $tool_url
+# Context in worker not the same as in flask
+cd $tool_name && ln -sf . $tool_name
 
 
 echo
