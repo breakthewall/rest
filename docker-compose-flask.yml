@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+
+  flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_DEBUG=1
+      - FLASK_RUN_PORT=8000
+      - FLASK_APP=main.py
+    image: flask
+    volumes:
+      - ./tools:/usr/src/app:ro
+    networks:
+      default:
+        aliases:
+          - flask
+      redis:
+    command: gunicorn -w 4 -b 0.0.0.0:8000 main:app
+
+networks:
+  default:
+    name: flask
+  redis:
+    external:
+      name: redis

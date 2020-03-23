@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+
+  worker:
+    build:
+      context: rq
+      dockerfile: Dockerfile
+      args:
+        IMAGE_NAME: ${IMAGE}
+        TOOL_NAME: ${COMPOSE_PROJECT_NAME}
+    image: rq/${COMPOSE_PROJECT_NAME}
+    volumes:
+      - ./tools/${COMPOSE_PROJECT_NAME}:/usr/src/app/${COMPOSE_PROJECT_NAME}:ro
+#      - worker:/usr/src/app/${COMPOSE_PROJECT_NAME}:ro
+    networks:
+      - worker
+      - redis
+    command: rq worker ${COMPOSE_PROJECT_NAME} --url redis://redis:6379
+
+  # install:
+  #   image: brsynth/base-tools
+  #   volumes:
+  #     - worker:/usr/src/app/${COMPOSE_PROJECT_NAME}
+  #   command: sh -c "cd /usr/src/app ; $INSTALL_CMD"
+
+networks:
+  worker:
+    name: ${COMPOSE_PROJECT_NAME}
+  redis:
+    external:
+      name: redis
+
+# volumes:
+#   worker:
+#     name: ${COMPOSE_PROJECT_NAME}
