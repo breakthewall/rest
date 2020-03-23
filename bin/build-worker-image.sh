@@ -16,4 +16,4 @@ if [[ "$from_image" == "" ]]; then
   from_image=$app
 fi
 
-COMPOSE_PROJECT_NAME=$app IMAGE=$from_image docker-compose build worker
+COMPOSE_PROJECT_NAME=$app IMAGE=$from_image docker-compose -f docker-compose-worker.yml build worker
