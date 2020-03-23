@@ -1,7 +1,7 @@
-ARG IMAGE
+ARG IMAGE_NAME
 
 # base image
-FROM ${IMAGE}
+FROM ${IMAGE_NAME}
 
 # add requirements (to leverage Docker cache)
 ADD ./requirements.txt ./requirements.txt
@@ -16,5 +16,5 @@ ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
 # set working directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+ARG TOOL_NAME
+WORKDIR /usr/src/app/${TOOL_NAME}
