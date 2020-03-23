@@ -10,5 +10,4 @@ if [[ "$app" == "" ]]; then
   exit 1
 fi
 
-COMPOSE_PROJECT_NAME=$app docker-compose stop worker
-docker network disconnect $app flask
+COMPOSE_PROJECT_NAME=$app docker-compose -f docker-compose-worker.yml down

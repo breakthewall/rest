@@ -17,5 +17,5 @@ if [[ "$nb" == "" ]]; then
   nb=1
 fi
 
-COMPOSE_PROJECT_NAME=$app docker-compose up -d --scale worker=$nb worker
-docker network connect $app flask
+COMPOSE_PROJECT_NAME=$app docker-compose -f docker-compose-worker.yml up -d --scale worker=$nb
+docker network connect $app "$(docker inspect -f '{{.Name}}' $(docker-compose -f docker-compose-flask.yml ps -q)  | cut -c2-)"
