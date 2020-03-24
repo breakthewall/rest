@@ -30,6 +30,9 @@ cd tools
 git clone -b $branch --single-branch $tool_url ${tool_name}
 cd $tool_name
 ln -sf . $tool_name
+git submodule init
+git submodule update --init --recursive --remote
+
 #"
 #COMPOSE_PROJECT_NAME=$tool_name INSTALL_CMD="$cmd" docker-compose -f docker-compose-worker.yml up install
 
