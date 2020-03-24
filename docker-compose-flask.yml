@@ -4,7 +4,7 @@ services:
 
   flask:
     build:
-      context: .
+      context: flask
       dockerfile: Dockerfile
     environment:
       - FLASK_DEBUG=1
