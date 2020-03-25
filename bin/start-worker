@@ -2,6 +2,11 @@
 
 app=$1
 nb=$2
+redis=$3
+
+if [[ "$redis" == "" ]]; then
+  redis="redis"
+fi
 
 if [[ "$app" == "" ]]; then
   echo
@@ -17,5 +22,5 @@ if [[ "$nb" == "" ]]; then
   nb=1
 fi
 
-COMPOSE_PROJECT_NAME=$app docker-compose -f docker-compose-worker.yml up -d --scale worker=$nb
+COMPOSE_PROJECT_NAME=$app REDIS=$redis docker-compose -f docker-compose-worker.yml up -d --scale worker=$nb
 docker network connect $app "$(docker inspect -f '{{.Name}}' $(docker-compose -f docker-compose-flask.yml ps -q)  | cut -c2-)"

@@ -16,7 +16,7 @@ services:
     networks:
       - worker
       - redis
-    command: rq worker ${COMPOSE_PROJECT_NAME} --url redis://redis:6379
+    command: rq worker ${COMPOSE_PROJECT_NAME} --url redis://${REDIS}:6379
 
   # install:
   #   image: brsynth/base-tools
