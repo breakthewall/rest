@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Checking number of arguments passed to the script
+if [[ "$#" -ne 3 ]]; then
+  echo
+  echo "Usage:"
+  echo
+  echo "   `basename $0` <tool_name> <tool_repo> <tool_branch>"
+  echo
+  exit 1
+fi
+
+tool_name=$1
+tool_url=$2
+branch=$3
+
+# Installing network
+docker network create $tool_name
+
+# Installing code
+cd tools
+git clone -b $branch --single-branch $tool_url ${tool_name}_${branch}
+cd ${tool_name}_${branch}
+ln -sf . ${tool_name}_${branch}
+git submodule init
+git submodule update --init --recursive --remote
+
+echo
+echo "Build with:"
+echo
+echo "     ./bin/build-worker-image ${tool_name} ${branch} [base_image_name]"
+echo
+echo "Run with:"
+echo
+echo "     ./bin/start-worker ${tool_name}_${branch} [nb_of_worker] [redis_hostname]"
+echo
+echo "Stop with:"
+echo
+echo "     ./bin/stop-worker ${tool_name}_${branch}"
+echo

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 app=$1
-from_image=$2
+branch=$2
+from_image=$3
 
 if [[ "$app" == "" ]]; then
   echo
@@ -16,4 +17,8 @@ if [[ "$from_image" == "" ]]; then
   from_image=$app
 fi
 
-COMPOSE_PROJECT_NAME=$app BASE_IMAGE=$from_image docker-compose -f docker-compose-worker.yml build worker
+COMPOSE_PROJECT_NAME=${app}_${branch} \
+BASE_IMAGE=$from_image \
+REDIS="" \
+NETWORK=$app \
+docker-compose -f docker-compose-worker.yml build worker

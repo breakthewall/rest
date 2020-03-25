@@ -1,7 +1,6 @@
 #!/bin/bash
 app=$1
 
-
 if [[ "$app" == "" ]]; then
   echo
   echo "Usage:"
@@ -10,5 +9,11 @@ if [[ "$app" == "" ]]; then
   exit 1
 fi
 
-docker network disconnect $app "$(docker inspect -f '{{.Name}}' $(docker-compose -f docker-compose-flask.yml ps -q)  | cut -c2-)"
-COMPOSE_PROJECT_NAME=$app docker-compose -f docker-compose-worker.yml down
+network=$(echo $app | awk '{n=split($0,tool,"_"); print(tool[1])}')
+
+COMPOSE_PROJECT_NAME=${app} \
+REDIS="" \
+NETWORK=$network \
+docker-compose -f docker-compose-worker.yml down
+
+docker network disconnect ${network} "$(docker inspect -f '{{.Name}}' $(docker-compose -f docker-compose-flask.yml ps -q)  | cut -c2-)"

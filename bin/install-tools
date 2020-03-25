@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source $PWD/bin/_functions.sh
+
+read_tools tools/tools.lst
+
+print "Installing Tools"
+for (( i=1; i<${#tools_names[@]} ; i++ )); do
+  bash $PWD/bin/install-tool ${tools_names[i]} ${tools_repos[i]} ${tools_branches[i]}
+  printf "\n"
+done
