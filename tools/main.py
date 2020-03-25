@@ -3,6 +3,7 @@ from rq import Queue
 import time
 import json
 from importlib import import_module
+import os
 
 from flask import Flask, request, Response
 app = Flask(__name__)
@@ -16,7 +17,7 @@ def main(tool):
 
         args = tool_module.read_args_from_request(request)
 
-        q = Queue(tool, connection=Redis(host='redis', port=6379))
+        q = Queue(tool, connection=Redis(host=os.getenv('REDIS'), port=6379))
         async_results = q.enqueue(tool_module.run, args)
         result = None
         while result is None:

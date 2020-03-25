@@ -18,7 +18,7 @@ services:
         aliases:
           - flask
       redis:
-    command: gunicorn -w 4 -b 0.0.0.0:8000 main:app
+    command: gunicorn -w 4 -b 0.0.0.0:8000 -e REDIS=${REDIS} main:app
 
 networks:
   default:

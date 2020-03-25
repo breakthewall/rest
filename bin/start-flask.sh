@@ -1,5 +1,14 @@
 #!/bin/bash
-docker-compose -f docker-compose-flask.yml up -d
+
+redis=$1
+
+if [[ "$redis" == "" ]]; then
+  redis="redis"
+fi
+
+
+
+REDIS=$redis docker-compose -f docker-compose-flask.yml up -d
 docker network connect \
   --alias flask \
   galaxy \
