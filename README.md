@@ -21,13 +21,17 @@ Flask service is assumed by gunicorn and can be run with:
 
 ## Restful tool
 ### Install
-Assumed you have a tool in rest mode, you can deploy it into this framework with:
+Tools to be installed by filling up `tools/tools.lst` and by running:
 ```
-./bin/deploy-tool <rest-tool_url> [branch (default='master')] [tool_name (default is extracted from rest-tool_url)]
+./bin/install-tools
+```
+A single restful tool can be installed with:
+```
+./bin/install-tool <tool_name> <tool_repo> <tool_branch>
 ```
 ### Build Docker image
 ```
-./bin/build-worker-image <tool_name> [from_image_name]
+./bin/build-worker-image <tool_name> [base_image_name]
 ```
 ### Run tool in rest mode
 The restful service is assumed by rq and can be run with:
