@@ -1,11 +1,11 @@
 # rest
 
-REST manager of tools. It contains a Flask service and is able to deploy tool as workers. Source code may be found at the following location: [GitHub](https://github.com/brsynth/rest).
+REST manager of tools. It contains a Flask service and is able to deploy tools as workers. Source code may be found at the following location: [GitHub](https://github.com/brsynth/rest).
 
 ## Prerequisites
 
 * Docker - [Install](https://docs.docker.com/install/)
-* Redis service. If none of such a service is available into your environment, you can deploy one by using [GitHub](https://github.com/brsynth/redis).
+* Redis service. If none of such a service is available within your environment, you can deploy one by using [GitHub](https://github.com/brsynth/redis).
 
 ## Flask service
 ### Start
