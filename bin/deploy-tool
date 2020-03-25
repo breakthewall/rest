@@ -39,13 +39,13 @@ git submodule update --init --recursive --remote
 echo
 echo "Build with:"
 echo
-echo "     ./bin/build-worker-image.sh ${tool_name} [from_image_name]"
+echo "     ./bin/build-worker-image ${tool_name} [from_image_name]"
 echo
 echo "Run with:"
 echo
-echo "     ./bin/start-worker.sh ${tool_name} [nb_of_worker]"
+echo "     ./bin/start-worker ${tool_name} [nb_of_worker] [redis_hostname]"
 echo
 echo "Stop with:"
 echo
-echo "     ./bin/stop-worker.sh ${tool_name}"
+echo "     ./bin/stop-worker ${tool_name}"
 echo
