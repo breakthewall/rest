@@ -6,6 +6,6 @@ read_tools tools/tools.lst
 
 print "Uninstalling Tools"
 for (( i=1; i<${#tools_names[@]} ; i++ )); do
-  bash $PWD/bin/uninstall-tool ${tools_names[i]} ${tools_branches[i]}
+  bash $PWD/bin/uninstall-tool ${tools_names[i]}_${tools_branches[i]}
   printf "\n"
 done
