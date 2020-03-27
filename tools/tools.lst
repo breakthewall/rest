@@ -1,2 +1,3 @@
 NAME REPO(HTTPS) BRANCH
 rp2paths https://github.com/brsynth/rp2paths-rest.git master
+retropath2 https://github.com/brsynth/retropath2-wrapper-rest.git master
