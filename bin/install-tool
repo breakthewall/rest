@@ -20,10 +20,10 @@ docker network create $tool_name
 # Installing code
 cd tools
 git clone -b $branch --single-branch $tool_url ${tool_name}_${branch}
-cd ${tool_name}_${branch}
-ln -sf . ${tool_name}_${branch}
-git submodule init
-git submodule update --init --recursive --remote
+# cd ${tool_name}_${branch}
+# ln -sf . ${tool_name}_${branch}
+# git submodule init
+# git submodule update --init --recursive --remote
 
 echo
 echo "Build with:"
