@@ -16,5 +16,6 @@ ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
 # set working directory
-ARG TOOL_NAME
-WORKDIR /usr/src/app/${TOOL_NAME}
+#ARG TOOL_NAME
+WORKDIR /home
+#/src/app/${TOOL_NAME}
