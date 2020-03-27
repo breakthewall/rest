@@ -11,7 +11,7 @@ services:
         TOOL_NAME: ${COMPOSE_PROJECT_NAME}
     image: rest/${COMPOSE_PROJECT_NAME}
     volumes:
-      - ./tools/${COMPOSE_PROJECT_NAME}:/usr/src/app/${COMPOSE_PROJECT_NAME}:ro
+      - ./tools/${COMPOSE_PROJECT_NAME}:/home/${COMPOSE_PROJECT_NAME}:ro
     networks:
       - worker
       - redis
