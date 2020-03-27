@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
       args:
         IMAGE_NAME: ${BASE_IMAGE}
-        TOOL_NAME: ${COMPOSE_PROJECT_NAME}
+#        TOOL_NAME: ${COMPOSE_PROJECT_NAME}
     image: rest/${COMPOSE_PROJECT_NAME}
     volumes:
       - ./tools/${COMPOSE_PROJECT_NAME}:/home/${COMPOSE_PROJECT_NAME}:ro
