@@ -2,5 +2,5 @@
 
 redis=""
 
-docker network disconnect galaxy "$(REDIS=$redis docker inspect -f '{{.Name}}' $(docker-compose -f docker-compose-flask.yml ps -q)  | cut -c2-)"
+docker network disconnect galaxy "$(docker inspect -f '{{.Name}}' $(REDIS=$redis docker-compose -f docker-compose-flask.yml ps -q)  | cut -c2-)"
 REDIS=$redis docker-compose -f docker-compose-flask.yml down

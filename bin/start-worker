@@ -28,4 +28,4 @@ COMPOSE_PROJECT_NAME=$app \
 REDIS=$redis \
 NETWORK=$network \
 docker-compose -f docker-compose-worker.yml up -d --scale worker=$nb
-docker network connect $network "$(REDIS=$redis docker inspect -f '{{.Name}}' $(docker-compose -f docker-compose-flask.yml ps -q)  | cut -c2-)"
+docker network connect $network "$(docker inspect -f '{{.Name}}' $(REDIS=$redis docker-compose -f docker-compose-flask.yml ps -q)  | cut -c2-)"
