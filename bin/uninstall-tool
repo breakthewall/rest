@@ -2,6 +2,14 @@
 
 tool_name=$1
 
+if [[ "$tool_name" == "" ]]; then
+  echo
+  echo "Usage:"
+  echo "    $0 <tool_name>"
+  echo
+  exit
+fi
+
 ./bin/stop-worker $tool_name
 
 rm -rf tools/${tool_name}
