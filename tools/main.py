@@ -19,10 +19,13 @@ def main(tool):
 
         q = Queue(tool, connection=Redis(host=os.getenv('REDIS'), port=6379))
         async_results = q.enqueue(tool_module.run, args)
+
+        # app.logger.info(str(async_results))
+
         result = None
         while result is None:
             result = async_results.return_value
-            app.logger.info(async_results.return_value)
+            #app.logger.info(async_results.return_value)
             app.logger.info(async_results.get_status())
             if async_results.get_status()=='failed':
                 return Response('Job failed \n '+str(result), status=400)
