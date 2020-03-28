@@ -12,7 +12,6 @@ ADD ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install --upgrade pip \
  && pip install -r requirements.txt
 
-# # copy project
-# COPY . /usr/src/app
+#COPY main.py /usr/src/app
 
 EXPOSE 8000
