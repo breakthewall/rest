@@ -15,7 +15,10 @@ services:
     networks:
       - worker
       - redis
-    command: rq worker ${COMPOSE_PROJECT_NAME} --url redis://${REDIS}:6379
+    command: rq worker
+                  --quiet
+                  ${COMPOSE_PROJECT_NAME}
+                  --url redis://${REDIS}:6379
 
 networks:
   worker:
