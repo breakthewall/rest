@@ -2,7 +2,7 @@
 
 source $PWD/bin/_functions.sh
 
-read_tools tools/tools.lst
+read_tools conf/tools.lst
 
 print "Uninstalling Tools"
 for (( i=1; i<${#tools_names[@]} ; i++ )); do
