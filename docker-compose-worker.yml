@@ -16,7 +16,7 @@ services:
       - worker
       - redis
     command: rq worker
-                  --quiet
+                  --disable-job-desc-logging
                   ${COMPOSE_PROJECT_NAME}
                   --url redis://${REDIS}:6379
 
