@@ -5,6 +5,8 @@ FROM python:3.8.0-alpine
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
+COPY main.py .
+
 # add requirements (to leverage Docker cache)
 ADD ./requirements.txt /usr/src/app/requirements.txt
 
