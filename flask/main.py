@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route('/<tool>', methods=['POST'])
 def main(tool):
 
-    tool_module = import_module(".server", tool)
+    tool_module = import_module(".server", "tools."+tool)
 
     if request.method == "POST":
 
