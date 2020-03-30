@@ -2,23 +2,23 @@
 
 app=$1
 branch=$2
-from_image=$3
 
-if [[ "$app" == "" ]]; then
-  echo
-  echo "Usage:"
-  echo
-  echo "   `basename $0` <app-name> [nb_of_workers]"
-  echo
-  exit 1
-fi
+image=rest/${app}_${branch}
 
-if [[ "$from_image" == "" ]]; then
-  from_image=$app
-fi
+source bin/_functions.sh
 
+print "Building $app image"
+IMAGE_NAME=$image \
+  docker-compose \
+    -f tools/${app}_${branch}/docker/docker-compose.yml \
+    build
+
+
+print "Building rest/$app image"
 COMPOSE_PROJECT_NAME=${app}_${branch} \
-BASE_IMAGE=$from_image \
+BASE_IMAGE=$image \
 REDIS="" \
 NETWORK=$app \
-docker-compose -f docker-compose-worker.yml build worker
+  docker-compose \
+    -f docker-compose-worker.yml \
+    build worker
