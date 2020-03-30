@@ -19,3 +19,8 @@ ENV LANG C.UTF-8
 #ARG TOOL_NAME
 WORKDIR /home
 #/src/app/${TOOL_NAME}
+
+ARG PROJECT_NAME
+# Make consistent with flask import paths in @app.route
+RUN mkdir -p tools \
+ && ln -sf $PWD tools/${PROJECT_NAME}
