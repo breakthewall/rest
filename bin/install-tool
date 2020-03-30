@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source bin/_functions.sh
+
 # Checking number of arguments passed to the script
 if [[ "$#" -ne 3 ]]; then
   echo
@@ -14,21 +16,21 @@ tool_name=$1
 tool_url=$2
 branch=$3
 
-# Installing network
+install_dir=tools/${tool_name}_${branch}
+print "Installing network"
 docker network create $tool_name
 
-# Installing code
-cd tools
-git clone -b $branch --single-branch $tool_url ${tool_name}_${branch}
-# cd ${tool_name}_${branch}
-# ln -sf . ${tool_name}_${branch}
-# git submodule init
-# git submodule update --init --recursive --remote
+print "Installing code"
+rm -rf $install_dir
+git clone -b $branch --single-branch $tool_url $install_dir
 
-echo
-echo "Build with:"
-echo
-echo "     ./bin/build-worker-image ${tool_name} ${branch} [base_image_name]"
+./bin/build-worker-image ${tool_name} ${branch}
+
+
+# echo
+# echo "Build with:"
+# echo
+# echo "     ./bin/build-worker-image ${tool_name} ${branch} [base_image_name]"
 echo
 echo "Run with:"
 echo
