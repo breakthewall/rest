@@ -8,10 +8,10 @@ services:
       dockerfile: Dockerfile
       args:
         IMAGE_NAME: ${BASE_IMAGE}
-#        TOOL_NAME: ${COMPOSE_PROJECT_NAME}
-    image: rest/${COMPOSE_PROJECT_NAME}
-    volumes:
-      - ./tools/${COMPOSE_PROJECT_NAME}:/home/${COMPOSE_PROJECT_NAME}:ro
+        PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+    image: rest/${COMPOSE_PROJECT_NAME}-rest
+    # volumes:
+    #   - ./tools/${COMPOSE_PROJECT_NAME}:/home/tools/${COMPOSE_PROJECT_NAME}:ro
     networks:
       - worker
       - redis
