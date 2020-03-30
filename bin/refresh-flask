@@ -1,0 +1,6 @@
+#!/bin/bash
+
+REDIS="" docker-compose -f docker-compose-flask.yml build
+
+./bin/stop-flask
+./bin/start-flask

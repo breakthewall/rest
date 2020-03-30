@@ -1,0 +1,13 @@
+version: '2.4'
+
+services:
+
+  tool:
+    image: ${IMAGE_NAME}
+    build:
+      context: ../..
+      dockerfile: rq/tool/Dockerfile
+      args:
+        BASE_IMAGE: ${BASE_IMAGE_NAME}
+        TOOL_DIR: ${TOOL_PATH}
+    restart: always

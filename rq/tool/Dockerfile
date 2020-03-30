@@ -1,0 +1,8 @@
+ARG BASE_IMAGE
+
+FROM ${BASE_IMAGE}
+
+WORKDIR /home
+
+ARG TOOL_DIR
+COPY ${TOOL_DIR}/worker.py .

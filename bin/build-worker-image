@@ -3,14 +3,19 @@
 app=$1
 branch=$2
 
+tool_dir=tools/${app}_${branch}
+
 image=rest/${app}_${branch}
 
 source bin/_functions.sh
 
 print "Building $app image"
+source tools/${app}_${branch}/docker/.env
 IMAGE_NAME=$image \
+BASE_IMAGE_NAME=$BASE_IMAGE_NAME \
+TOOL_PATH=$tool_dir \
   docker-compose \
-    -f tools/${app}_${branch}/docker/docker-compose.yml \
+    -f rq/tool/docker-compose.yml \
     build
 
 

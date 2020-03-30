@@ -24,3 +24,5 @@ ARG PROJECT_NAME
 # Make consistent with flask import paths in @app.route
 RUN mkdir -p tools \
  && ln -sf $PWD tools/${PROJECT_NAME}
+
+COPY generic-request.py .
