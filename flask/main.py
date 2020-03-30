@@ -11,15 +11,16 @@ def read_args_from_request(request):
     # Result
     args = {}
 
-    # De-jsonify
-    data = json.load(request.files['data'])
-    for key in data:
-        args[key] = data[key]
-
     # Gather files
     for key in request.files:
         if key.startswith("_file_"):
             args[key] = request.files[key].read()
+
+    # De-jsonify and add to args
+    args.update(json.load(request.files['data']))
+    # data = json.load(request.files['data'])
+    # for key in data:
+    #     args[key] = data[key]
 
     return args
 
@@ -35,7 +36,7 @@ def main(tool):
         args = read_args_from_request(request)
 
         q = Queue(tool, connection=Redis(host=os.getenv('REDIS'), port=6379))
-        tool_module = import_module(".server", "tools."+tool)
+        tool_module = import_module(".worker", "tools."+tool+".rest")
         async_results = q.enqueue(tool_module.run, args, job_timeout=1800)
 
         # app.logger.info(str(async_results))
