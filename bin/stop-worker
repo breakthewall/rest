@@ -15,6 +15,7 @@ redis=""
 COMPOSE_PROJECT_NAME=${app} \
 REDIS=$redis \
 NETWORK=$network \
-docker-compose -f docker-compose-worker.yml down
+TOOL_PATH="" \
+docker-compose -f worker/docker-compose.yml down
 
-docker network disconnect ${network} "$(docker inspect -f '{{.Name}}' $(REDIS=$redis docker-compose -f docker-compose-flask.yml ps -q)  | cut -c2-)"
+docker network disconnect ${network} "$(docker inspect -f '{{.Name}}' $(REDIS=$redis COMPOSE_PROJECT_NAME=rest docker-compose -f flask/docker-compose.yml ps -q)  | cut -c2-)"

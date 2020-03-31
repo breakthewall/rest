@@ -1,10 +1,13 @@
-ARG IMAGE_NAME
+ARG BASE_IMAGE_NAME
 
-# base image
-FROM ${IMAGE_NAME}
+FROM ${BASE_IMAGE_NAME}
+
+ARG TOOL_DIR
+COPY ${TOOL_DIR}/worker.py .
+
 
 # add requirements (to leverage Docker cache)
-ADD ./requirements.txt ./requirements.txt
+ADD worker/requirements.txt ./requirements.txt
 
 # install requirements
 RUN python -m pip install --upgrade pip \
@@ -25,4 +28,4 @@ ARG PROJECT_NAME
 RUN mkdir -p tools \
  && ln -sf $PWD tools/${PROJECT_NAME}
 
-COPY generic-request.py .
+COPY request.py .

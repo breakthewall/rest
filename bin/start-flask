@@ -8,8 +8,10 @@ fi
 
 
 
-REDIS=$redis docker-compose -f docker-compose-flask.yml up -d
+REDIS=$redis \
+COMPOSE_PROJECT_NAME=rest \
+docker-compose -f flask/docker-compose.yml up -d
 docker network connect \
   --alias flask \
   galaxy \
-  "$(docker inspect -f '{{.Name}}' $(REDIS=$redis docker-compose -f docker-compose-flask.yml ps -q)  | cut -c2-)" \
+  "$(docker inspect -f '{{.Name}}' $(REDIS=$redis COMPOSE_PROJECT_NAME=rest docker-compose -f flask/docker-compose.yml ps -q)  | cut -c2-)" \

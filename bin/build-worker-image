@@ -11,19 +11,20 @@ source bin/_functions.sh
 
 print "Building $app image"
 source tools/${app}_${branch}/docker/.env
-IMAGE_NAME=$image \
-BASE_IMAGE_NAME=$BASE_IMAGE_NAME \
-TOOL_PATH=$tool_dir \
-  docker-compose \
-    -f rq/tool/docker-compose.yml \
-    build
+# IMAGE_NAME=$image \
+# BASE_IMAGE_NAME=$BASE_IMAGE_NAME \
+# TOOL_PATH=$tool_dir \
+#   docker-compose \
+#     -f worker/tool/docker-compose.yml \
+#     build
 
 
 print "Building rest/$app image"
 COMPOSE_PROJECT_NAME=${app}_${branch} \
-BASE_IMAGE=$image \
+BASE_IMAGE=$BASE_IMAGE_NAME \
+TOOL_PATH=$tool_dir \
 REDIS="" \
 NETWORK=$app \
   docker-compose \
-    -f docker-compose-worker.yml \
+    -f worker/docker-compose.yml \
     build worker

@@ -4,11 +4,12 @@ services:
 
   worker:
     build:
-      context: rq
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: worker/Dockerfile
       args:
-        IMAGE_NAME: ${BASE_IMAGE}
+        BASE_IMAGE_NAME: ${BASE_IMAGE}
         PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+        TOOL_DIR: ${TOOL_PATH}
     image: rest/${COMPOSE_PROJECT_NAME}-rest
     # volumes:
     #   - ./tools/${COMPOSE_PROJECT_NAME}:/home/tools/${COMPOSE_PROJECT_NAME}:ro

@@ -6,7 +6,7 @@ services:
     image: ${IMAGE_NAME}
     build:
       context: ../..
-      dockerfile: rq/tool/Dockerfile
+      dockerfile: worker/tool/Dockerfile
       args:
         BASE_IMAGE: ${BASE_IMAGE_NAME}
         TOOL_DIR: ${TOOL_PATH}

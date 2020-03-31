@@ -1,0 +1,10 @@
+#!/bin/bash
+
+tool_name=$1
+tool_url=$2
+branch=$3
+
+
+./build-worker-image $tool_name $tool_url $branch
+
+./start-worker ${tool_name}_${branch
