@@ -11,16 +11,13 @@ def read_args_from_request(request):
     # Result
     args = {}
 
-    # Gather files
+    # Gather files and Read buffers (needed by 'enqueue')
     for key in request.files:
         if key.startswith("_file_"):
             args[key] = request.files[key].read()
 
     # De-jsonify and add to args
     args.update(json.load(request.files['data']))
-    # data = json.load(request.files['data'])
-    # for key in data:
-    #     args[key] = data[key]
 
     return args
 
