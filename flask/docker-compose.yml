@@ -12,7 +12,7 @@ services:
       - FLASK_APP=main.py
     image: flask
     volumes:
-      - ./tools:/usr/src/app/tools:ro
+      - ../tools:/usr/src/app/tools:ro
     networks:
       default:
         aliases:
