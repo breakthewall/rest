@@ -33,8 +33,10 @@ def main(tool):
         args = read_args_from_request(request)
 
         q = Queue(tool, connection=Redis(host=os.getenv('REDIS'), port=6379))
-        tool_module = import_module(".worker", "tools."+tool)
-        async_results = q.enqueue(tool_module.run, args, job_timeout=1800)
+        # tool_module = import_module(".worker", "tools."+tool)
+        # async_results = q.enqueue(tool_module.run, args, job_timeout=1800)
+        from worker import run as worker_run
+        async_results = q.enqueue(worker_run, args, job_timeout=1800)
 
         # app.logger.info(str(async_results))
 

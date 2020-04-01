@@ -4,15 +4,15 @@ services:
 
   flask:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: flask/Dockerfile
     environment:
       - FLASK_DEBUG=1
       - FLASK_RUN_PORT=8000
       - FLASK_APP=main.py
     image: flask
-    volumes:
-      - ../tools:/usr/src/app/tools:ro
+    # volumes:
+    #   - ../tools:/usr/src/app/tools:ro
     networks:
       default:
         aliases:
