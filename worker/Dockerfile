@@ -5,7 +5,7 @@ FROM ${BASE_IMAGE_NAME}
 WORKDIR /home
 
 ARG TOOL_DIR
-COPY ${TOOL_DIR}/worker.py .
+COPY ${TOOL_DIR}/tool.py .
 
 # add requirements (to leverage Docker cache)
 ADD worker/requirements.txt ./requirements.txt
@@ -24,4 +24,5 @@ ARG PROJECT_NAME
 RUN mkdir -p tools \
  && ln -sf $PWD tools/${PROJECT_NAME}
 
-COPY worker/request.py .
+#COPY worker/request.py .
+COPY worker/worker.py .
