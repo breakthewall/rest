@@ -34,6 +34,21 @@ def tar_cz_relative(*path):
 
 
 
+def process_params(args, out_folder):
+
+    # Process input files
+    files = {}
+    for key in args:
+        if key.startswith("_file_"):
+            # remove _file_
+            files[key[6:]] = out_folder+'/'+key+'.csv'
+            with open(files[key[6:]], 'wb') as outfi:
+                outfi.write(args[key])
+
+    tool_process_params = getattr(import_module("tool"), "process_params")
+    return tool_process_params(args, files, out_folder)
+
+
 from os import path as os_path
 from sys import path as sys_path
 sys_path.append(os_path.dirname(os_path.abspath(__file__)))
@@ -48,8 +63,7 @@ def run(args):
 
     with TemporaryDirectory() as tmpOutputFolder:
 
-        tool_process_params = getattr(import_module("tool"), "process_params")
-        params = tool_process_params(args, tmpOutputFolder)
+        params = process_params(args, tmpOutputFolder)
 
         tool_entrypoint = getattr(
             import_module("."+args['module'], "src"),
